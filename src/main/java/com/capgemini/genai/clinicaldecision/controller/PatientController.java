@@ -3,37 +3,33 @@ package com.capgemini.genai.clinicaldecision.controller;
 import com.capgemini.genai.clinicaldecision.model.Patient;
 import com.capgemini.genai.clinicaldecision.service.PatientService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@Controller
-@RequestMapping("/patients")
+@RestController
+@RequestMapping("/api/patients")
 public class PatientController {
 
     @Autowired
     private PatientService patientService;
 
+    // Listar todos os pacientes
     @GetMapping
-    public String listPatients(Model model) {
-        List<Patient> patients = patientService.getAllPatients();
-        model.addAttribute("patients", patients);
-        return "patients";
+    public List<Patient> listPatients() {
+        return patientService.getAllPatients();
     }
 
-    @PostMapping("/register")
-    public String registerPatient(@ModelAttribute Patient patient, Model model) {
+    // Registrar um novo paciente
+    @PostMapping(value = "/register")
+    public Patient registerPatient(@RequestBody Patient patient) {
         patientService.registerPatient(patient);
-        model.addAttribute("patients", patientService.getAllPatients());
-        return "fragments/patient-list :: patientList";
+        return patient; // Retorna o paciente recém-cadastrado
     }
 
+    // Pesquisar pacientes pelo nome
     @PostMapping("/search")
-    public String searchPatients(@RequestParam String name, Model model) {
-        List<Patient> patients = patientService.searchPatients(name);
-        model.addAttribute("patients", patients);
-        return "fragments/patient-list :: patientList";
+    public List<Patient> searchPatients(@RequestParam String name) {
+        return patientService.searchPatients(name);
     }
 }
