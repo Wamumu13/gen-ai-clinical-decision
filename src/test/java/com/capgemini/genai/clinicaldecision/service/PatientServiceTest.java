@@ -19,7 +19,7 @@ public class PatientServiceTest {
         Patient patient = new Patient();
         patient.setName("Wilson Bola");
         patient.setDocument("958658");
-        patient.setNum_utente("UTe4545");
+        patient.setNumUtente("UTe4545");
 
         // Salvar o paciente
         Patient savedPatient = patientService.registerPatient(patient);
@@ -28,6 +28,6 @@ public class PatientServiceTest {
         assertNotNull(savedPatient.getId());
         assertEquals("Wilson Bola", savedPatient.getName());
         assertEquals("958658", savedPatient.getDocument());
-        assertEquals("UTe4545", savedPatient.getNum_utente());
+        assertEquals("UTe4545", savedPatient.getNumUtente());
     }
 }

@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class PatientService {
@@ -28,6 +29,13 @@ public class PatientService {
 
     public List<Patient> getAllPatients() {
         return patientRepository.findAll();
+    }
+
+    // Método para registrar múltiplos pacientes
+    public List<Patient> registerPatients(List<Patient> patients) {
+        return patients.stream()
+                .map(this::registerPatient)
+                .collect(Collectors.toList());
     }
 
 }
