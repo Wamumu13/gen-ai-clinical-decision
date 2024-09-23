@@ -5,15 +5,14 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
+@Entity
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity
-@Table(name = "patients")
-public class Patient {
+@Table(name = "clinics_hospitals")
+public class ClinicHospital {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,21 +21,15 @@ public class Patient {
     @Column(name = "name", nullable = false, length = 100)
     private String name;
 
-    @Column(name = "document", unique = true, nullable = false, length = 20)
-    private String document;
-
-    @Column(name = "num_utente", unique = true, nullable = false, length = 20)
-    private String numUtente;
-
-    @Column(name = "date_of_birth")
-    private LocalDate dateOfBirth;
-
     @Enumerated(EnumType.STRING)
-    @Column(name = "gender")
-    private TypeGender gender;
+    @Column(name = "type")
+    private TypeClinicHospital type;
 
     @Column(name = "address", length = 255)
     private String address;
+
+    @Column(name = "phone_number", length = 20)
+    private String phoneNumber;
 
     @Column(name = "email", length = 100)
     private String email;
@@ -57,5 +50,3 @@ public class Patient {
         updatedAt = LocalDateTime.now();
     }
 }
-
-

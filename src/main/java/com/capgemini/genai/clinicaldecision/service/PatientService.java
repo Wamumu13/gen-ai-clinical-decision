@@ -2,9 +2,9 @@ package com.capgemini.genai.clinicaldecision.service;
 
 import com.capgemini.genai.clinicaldecision.model.Patient;
 import com.capgemini.genai.clinicaldecision.repository.PatientRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -12,8 +12,12 @@ import java.util.stream.Collectors;
 @Service
 public class PatientService {
 
+    private final PatientRepository patientRepository;
+
     @Autowired
-    private PatientRepository patientRepository;
+    public PatientService(PatientRepository patientRepository) {
+        this.patientRepository = patientRepository;
+    }
 
     public Patient registerPatient(Patient patient) {
         return patientRepository.save(patient);
@@ -37,5 +41,5 @@ public class PatientService {
                 .map(this::registerPatient)
                 .collect(Collectors.toList());
     }
-
 }
+
